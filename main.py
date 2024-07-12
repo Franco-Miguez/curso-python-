@@ -38,10 +38,28 @@ else:
     quit()
     
 print("Genial estas dentro")
-"""
+
 
 for numero in range(5):
     letra = input("Ingrese una letra: ")
     if letra == "a" or letra == "e" or letra == "i" or letra == "o" or letra == "u":
         continue
     print("#####\tLetra incorrecta\t#####")
+
+
+
+
+while True:
+    celular = input("ingrese su celular: ")
+    if celular.isdigit():
+        celular = int(celular)
+        print("Genial fue guardado!!")
+        break
+    else:
+        if celular.find(" ") != -1:
+            print("No ingrese espacios")
+        elif celular.find("-") != -1:
+            print("No ingrese -")
+        print("Ingrese solo numeros")
+
+"""
