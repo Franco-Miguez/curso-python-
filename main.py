@@ -63,3 +63,15 @@ while True:
         print("Ingrese solo numeros")
 
 """
+def saludar(*nombres : str,
+            apellido_familiar : str | None = ""
+            ):
+    for nombre in nombres:
+        print(f"Hola {nombre} {apellido_familiar}")
+
+def saludar_empleados(nombres : list [str] ): 
+    for i in range(len(nombres)):
+        nombres[i] = nombres[i].capitalize()
+        print(f"Hola {nombres[i]}")
+
+saludar("Juan","Nacho","Pedro", apellido_familiar="Calderon")
