@@ -69,9 +69,29 @@ def saludar(*nombres : str,
     for nombre in nombres:
         print(f"Hola {nombre} {apellido_familiar}")
 
-def saludar_empleados(nombres : list [str] ): 
+def saludar_empleados(nombres : list [str] ) -> None: 
     for i in range(len(nombres)):
         nombres[i] = nombres[i].capitalize()
         print(f"Hola {nombres[i]}")
 
-saludar("Juan","Nacho","Pedro", apellido_familiar="Calderon")
+#saludar("Juan","Nacho","Pedro", apellido_familiar="Calderon")
+def saludar_empleado(**empleado):
+    for i in empleado:
+        print(f"{i.capitalize()}: {empleado.get(i)}")
+
+def sumar(*numeros :  int) -> int:
+    #global resultado
+    for i in numeros:
+        try:
+            if type(i) == int or type(i) == float:
+                resultado += i
+            else:
+                resultado += int(i)
+        except ValueError:
+            print(f"el valor {i} no es un numero")
+    return resultado
+
+resultado = 0
+
+#print( sumar(5,6, "ABC",8,"3") )
+
