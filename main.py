@@ -62,7 +62,7 @@ while True:
             print("No ingrese -")
         print("Ingrese solo numeros")
 
-"""
+
 def saludar(*nombres : str,
             apellido_familiar : str | None = ""
             ):
@@ -91,7 +91,89 @@ def sumar(*numeros :  int) -> int:
             print(f"el valor {i} no es un numero")
     return resultado
 
+
 resultado = 0
+
 
 #print( sumar(5,6, "ABC",8,"3") )
 
+while True:
+    try:
+        numero = int( input("Ingrese numero: ") )
+    except ValueError:
+
+        print("A ingresado un valor incorrecto")
+    else:
+        numero **= 2
+        break
+    finally:
+        print("#"*8, "Fin", "#"*8)
+
+print("Fin del programa")
+
+
+
+def nombres(*nombres : str):
+    for nombre in nombres:
+        if not nombre.isalpha():
+            raise NameError(f"Ingreso un nombre con caracteres especiales {nombre}")
+    
+    print(*nombres)
+        
+
+nombres("Juan", "Pedro", "@Eric", "Ana")
+
+"""
+
+class Persona():
+    def __init__(
+                self,
+                sexo : bool,
+                nombre : str | None = "Sin nombre" ,
+                edad : int | None = 0
+                ) -> None:
+        self.nombre = nombre
+        self.edad = edad
+        self.sexo = sexo
+    
+    def saludar(self) -> None:
+        print(f"Hola a todos. Soy {self.nombre}")
+    
+    def mostrar_edad(self) -> int:
+        return self.edad
+
+{"001": "Nombre"}
+
+class Empleado():
+    def __init__(self, 
+             legajo : str, 
+             nombre : str, 
+             edad : int, 
+             sexo : bool, 
+             dni : int, 
+             trabaja : bool, 
+             sueldo : float) -> None:
+        self.legajo  = legajo
+        self.nombre  = nombre
+        self.edad    = edad
+        self.sexo    = sexo
+        self.dni     = dni
+        self.trabaja = trabaja
+        self.sueldo  = sueldo
+        
+    def mostrar_info(self) -> None:
+        sexo_dato    = "Masculino" if self.sexo else "Femenino"
+        estado       = "En Actividad" if self.trabaja else ">> INACTIVO <<"
+        print(f"Nombre  : {self.nombre:20}\nEdad    : {self.edad:3}\nSexo    : {sexo_dato:12}\nDNI     : {self.dni:15}\nSueldo  : {self.sueldo:15}\nEstado  : {estado}\n\n")
+        
+    def mostrar_sueldo(self) -> float:
+        return self.sueldo
+    
+    def subir_sueldo(self, porcentaje : float) -> None:
+        self.sueldo *= 1 + (porcentaje/100)
+
+m = Empleado("001","Juan",15,True,156546546,True,200)
+
+print(m.mostrar_info())
+m.subir_sueldo(20)
+print(m.mostrar_info())
