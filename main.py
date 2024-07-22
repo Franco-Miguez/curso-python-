@@ -1,3 +1,5 @@
+from persona import *
+
 """
 nombres = []
 
@@ -125,55 +127,29 @@ nombres("Juan", "Pedro", "@Eric", "Ana")
 
 """
 
-class Persona():
-    def __init__(
-                self,
-                sexo : bool,
-                nombre : str | None = "Sin nombre" ,
-                edad : int | None = 0
-                ) -> None:
-        self.nombre = nombre
-        self.edad = edad
-        self.sexo = sexo
+#empleado = Empleado("001","Juan",15,True,156546546,True,200)
+
+class Inventario():
+    sucursales = 2
+    def __init__(self, productos : int) -> None:
+        self._productos = productos
     
-    def saludar(self) -> None:
-        print(f"Hola a todos. Soy {self.nombre}")
-    
-    def mostrar_edad(self) -> int:
-        return self.edad
+    @classmethod
+    def sumar_sucursal(cls) -> None:
+        cls.sucursales += 1 
 
-{"001": "Nombre"}
 
-class Empleado():
-    def __init__(self, 
-             legajo : str, 
-             nombre : str, 
-             edad : int, 
-             sexo : bool, 
-             dni : int, 
-             trabaja : bool, 
-             sueldo : float) -> None:
-        self.legajo  = legajo
-        self.nombre  = nombre
-        self.edad    = edad
-        self.sexo    = sexo
-        self.dni     = dni
-        self.trabaja = trabaja
-        self.sueldo  = sueldo
-        
-    def mostrar_info(self) -> None:
-        sexo_dato    = "Masculino" if self.sexo else "Femenino"
-        estado       = "En Actividad" if self.trabaja else ">> INACTIVO <<"
-        print(f"Nombre  : {self.nombre:20}\nEdad    : {self.edad:3}\nSexo    : {sexo_dato:12}\nDNI     : {self.dni:15}\nSueldo  : {self.sueldo:15}\nEstado  : {estado}\n\n")
-        
-    def mostrar_sueldo(self) -> float:
-        return self.sueldo
-    
-    def subir_sueldo(self, porcentaje : float) -> None:
-        self.sueldo *= 1 + (porcentaje/100)
+Inventario.sumar_sucursal()
 
-m = Empleado("001","Juan",15,True,156546546,True,200)
+sucursales = (Inventario(156), Inventario(186))
 
-print(m.mostrar_info())
-m.subir_sueldo(20)
-print(m.mostrar_info())
+print(sucursales[0].sucursales, sucursales[1].sucursales)
+
+Inventario.sumar_sucursal()
+
+print(sucursales[0].sucursales, sucursales[1].sucursales)
+
+def otra_cosa():
+    print("Hola")
+
+otra_cosa()
