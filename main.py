@@ -1,4 +1,4 @@
-from persona import *
+from persona import Persona
 
 """
 nombres = []
@@ -138,18 +138,10 @@ class Inventario():
     def sumar_sucursal(cls) -> None:
         cls.sucursales += 1 
 
+p = Persona(True, 415681526, "juan", 15)
 
-Inventario.sumar_sucursal()
+p.cambiar_nombre()
 
-sucursales = (Inventario(156), Inventario(186))
 
-print(sucursales[0].sucursales, sucursales[1].sucursales)
 
-Inventario.sumar_sucursal()
 
-print(sucursales[0].sucursales, sucursales[1].sucursales)
-
-def otra_cosa():
-    print("Hola")
-
-otra_cosa()

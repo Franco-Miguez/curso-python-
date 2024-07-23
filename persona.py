@@ -12,19 +12,29 @@ class Persona():
         self._dni = dni
     
     def saludar(self) -> None:
+        """Muestra un saludo y su nombre
+        """
         print(f"Hola a todos. Soy {self._nombre}")
     
     def mostrar_edad(self) -> int:
+        """devuelve una edad
+
+        Returns:
+            int: devuelve la edad
+        """
         return self._edad
 
-def algo():
-    pass
+    def cambiar_nombre(self, nombre : str) -> str:
+        """actualizar el nombre
 
-def otra_cosa():
-    pass
+        Args:
+            nombre (str): Nuevo nombre a poner
 
-def algo_2():
-    pass
-
-def otra_cosa_2():
-    pass
+        Returns:
+            str: el nombre que fue cambiado
+        """
+        nombre_anterior = self._nombre
+        self._nombre = nombre
+        
+        return nombre_anterior
+        
