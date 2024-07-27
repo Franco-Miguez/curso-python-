@@ -1,5 +1,6 @@
+import PIL.Image
 from persona import Persona
-
+from PIL import Image
 """
 nombres = []
 
@@ -140,8 +141,13 @@ class Inventario():
 
 p = Persona(True, 415681526, "juan", 15)
 
-p.cambiar_nombre()
 
+with open("user.txt", "r") as archivo:
+    for linea in archivo:
+        print(linea)
 
+img = Image.open("nuevo.jpeg")
+
+img.show()
 
 
