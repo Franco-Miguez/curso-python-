@@ -1,6 +1,8 @@
-import PIL.Image
 from persona import Persona
 from PIL import Image
+
+import random
+import os
 """
 nombres = []
 
@@ -128,6 +130,7 @@ nombres("Juan", "Pedro", "@Eric", "Ana")
 
 """
 
+"""
 #empleado = Empleado("001","Juan",15,True,156546546,True,200)
 
 class Inventario():
@@ -146,8 +149,51 @@ with open("user.txt", "r") as archivo:
     for linea in archivo:
         print(linea)
 
-img = Image.open("nuevo.jpeg")
-
-img.show()
 
 
+with Image.open("nuevo.jpeg") as img:
+    img_new = img.resize((200,200))
+    img_new = img_new.rotate(90)
+    img_new.save("modificada.jpg")
+"""
+
+"""
+participantes = ["Juan", "Ana", "Pedro", "Andrea", "Charly", "Cele"]
+
+print( random.choice(participantes) )
+"""
+
+"""
+lista_archivos = os.listdir()
+
+for archivo in lista_archivos:
+    if archivo == "Imagenes":
+        break
+else:
+    os.mkdir("Imagenes")
+
+for x in os.listdir("./imagenes"):
+    if x == "fondo.jpg":
+        print(f"El archivo {x} ya existe ")
+        break
+else:
+    with Image.open("nuevo.jpeg") as img:
+        img = img.rotate(90)
+        img.save(os.path.join("Imagenes","fondo.jpg"))
+    
+
+os.chdir(".\\Imagenes")
+print(os.getcwd())
+
+
+for x in os.listdir("."):
+    if os.path.splitext(x)[1] == ".txt":
+        print(f"es un archivo de texto el archivo: {x}")
+    print(f"{x} es un archivo") if os.path.isfile(x) else print(f"{x} No es un archivo")
+
+
+ruta = os.path.join("Imagenes","fondo.jpg")
+print(ruta)
+ruta_dividida = os.path.split(ruta)
+print(ruta_dividida)
+"""
