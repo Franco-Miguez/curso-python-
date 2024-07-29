@@ -3,6 +3,11 @@ from PIL import Image
 
 import random
 import os
+
+import sys
+from datetime import datetime, timedelta
+import locale
+
 """
 nombres = []
 
@@ -197,3 +202,9 @@ print(ruta)
 ruta_dividida = os.path.split(ruta)
 print(ruta_dividida)
 """
+
+locale.setlocale(locale.LC_TIME , "es_AR.UTF-8")
+
+creado = datetime.now()
+
+print(creado.strftime("%A__%B__%Y | %H "))
