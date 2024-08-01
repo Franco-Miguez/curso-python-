@@ -1,3 +1,0 @@
-c:/Users/Miguez/Desktop/curso-python-/venv/Scripts/python.exe c:/Users/Miguez/Desktop/curso-python-/main.py
-/Desktop/curso-python-/venv/Scripts/python.exe c:/Users/Miguez/Desktop/curso-python-/main.py
-nv/Scripts/python.exe c:/Users/Miguez/Desktop/curso-python-/main.py
