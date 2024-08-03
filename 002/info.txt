@@ -1,0 +1,6 @@
+legajo=002
+nombre=Ana
+apellido=Calderon
+dni=35684321
+puesto=Contador
+foto=nueva.png

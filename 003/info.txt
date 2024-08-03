@@ -1,0 +1,6 @@
+legajo=003
+nombre=Pepe
+apellido=Calderon
+dni=35684321
+puesto=Contador
+foto=img.jpg
