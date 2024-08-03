@@ -1,6 +1,7 @@
 legajo=003
-nombre=Pepe
-apellido=Calderon
+nombre=Juan
+apellido=Pedrino
 dni=35684321
-puesto=Contador
+puesto=Abogado
 foto=img.jpg
+creado=2024-08-03 14:12:44.495701

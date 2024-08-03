@@ -1,0 +1,7 @@
+legajo=001
+nombre=Juan
+apellido=Calderon
+dni=35684321
+puesto=Contador
+foto=img.jpg
+creado=2024-08-03 14:18:24.113858

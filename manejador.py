@@ -3,7 +3,8 @@ import os
 import shutil
 
 class Manejador():
-    def crear(self, empleado : Empleado):
+    @classmethod
+    def crear(cls, empleado : Empleado):
         """crea una carpeta con la informacion dentro
 
         Args:
@@ -21,8 +22,10 @@ class Manejador():
                 txt.write(f"dni={empleado.get_dni()}\n")
                 txt.write(f"puesto={empleado.get_puesto()}\n")
                 txt.write(f"foto={empleado.get_foto()}\n")
-    
-    def eliminar(self, legajo : str):
+                txt.write(f"creado={empleado.get_creado()}\n")
+                
+    @classmethod
+    def eliminar(cls, legajo : str):
         """elimina la carpeta y lo que contine si el empleado existe
 
         Args:
@@ -33,20 +36,38 @@ class Manejador():
         else:
             print("ese empleado no existe")
 
-    def mostrar_empleados(self):
+    @classmethod
+    def mostrar_empleados(cls):
         for archivo in  os.listdir("."):
             if os.path.isdir(archivo) and archivo.isdigit():
                 with open( os.path.join(archivo,"info.txt") ) as txt:
-                    for linea in txt:
-                        print(linea)
+                    info = txt.read()
+                    info = info.split("\n") #separo por lineas
+                    nuevo_txt = "\n" 
+                    for linea in info:
+                        if len(linea.split("=")) > 1:
+                            nuevo_txt += f"{linea.split('=')[0]}:  {linea.split('=')[1]}\n" # divido la lenea en 2 uno es el nombre del dato y el otro el valor 
+                    print(nuevo_txt)
+                        
 
-    def modificar(self, legajo : str,
+    @classmethod
+    def modificar(cls, legajo : str,
                     nombre : str | None = "",
                     apellido : str | None = "",
                     dni : str | None = "",
                     puesto : str | None = "",
                     foto : str | None = "",
                     ):
+        """actualiza la información si no se le pasa valor queda la anterior
+
+        Args:
+            legajo (str): empleado a modificar
+            nombre (str | None, optional): nombre nuevo. Defaults to "".
+            apellido (str | None, optional): apellido nuevo. Defaults to "".
+            dni (str | None, optional): dni nuevo. Defaults to "".
+            puesto (str | None, optional): puesto nuevo. Defaults to "".
+            foto (str | None, optional): ruta nueva. Defaults to "".
+        """
         if os.path.isdir(legajo):
             info_nuevo = ""
             ruta = os.path.join(legajo,"info.txt")
@@ -60,16 +81,14 @@ class Manejador():
             info_nuevo += f"dni={dni}\n" if dni else f"{texto[3]}\n"
             info_nuevo += f"puesto={puesto}\n" if puesto else f"{texto[4]}\n"
             info_nuevo += f"foto={foto}\n" if foto else f"{texto[5]}\n"
+            info_nuevo += f"{texto[6]}\n"
             
             with open(ruta, "w") as txt:
                 txt.write(info_nuevo)
 
 
 if __name__ == "__main__":
-    mg = Manejador()
     
     empleado = Empleado("003", "Juan", "Calderon", 35684321,"Contador", "img.jpg")
     
-    #mg.crear(empleado)
-    #mg.eliminar("001")
-    mg.modificar("002", nombre="Ana", foto="nueva.png")
+    Manejador.mostrar_empleados()
