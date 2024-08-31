@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 from PIL import Image
 from PIL import ImageTk
 
@@ -100,7 +101,42 @@ ventana_hija.iconbitmap(IMAGE_ICON)
 ventana_hija.grab_set()
 ventana_hija.protocol("WM_DELETE_WINDOW", lambda: ventana_hija.destroy())
 
+"""
 btn_salir = tk.Button(ventana_hija,text="Salir", command=lambda: salir(ventana_hija), width=30, height=5)
 btn_salir.pack(side="bottom", pady=20)
+
+
+var = tk.StringVar(value="Blue")
+var.trace_add("write", lambda a,b,c: ventana_hija.config(bg=var.get()))
+
+btn_rosa = tk.Checkbutton(ventana_hija, text="Rosa", variable=var, onvalue="Rosita", offvalue="None")
+btn_azul = tk.Checkbutton(ventana_hija, text="Azul", variable=var_2, onvalue="Azulcito", offvalue="None")
+btn_rosa.pack(side="left", pady=5)
+btn_azul.pack(side="left", pady=5)
+img = tk.PhotoImage(file="./img/next.png")
+btn_rosa = tk.Radiobutton(ventana_hija, variable=var, image=img, text="rosa", value="pink")
+btn_azul = tk.Radiobutton(ventana_hija, variable=var, text="Azul", value="blue")
+btn_rosa.pack(side="left")
+btn_azul.pack(side="left")
+tk.Radiobutton(ventana_hija, selectcolor="green").pack(side="left")
+
+select = ttk.Combobox(ventana_hija, values=["Green","Blue","Black"], state="readonly", textvariable=var)
+select.pack(side="left")
+
+texto = tk.Label(ventana_hija, text=var.get())
+texto.pack(side="bottom")
+
+"""
+
+tree = ttk.Treeview(ventana_hija)
+tree.pack(side="top", fill="both", expand=True)
+
+img = tk.PhotoImage(file="./img/next.png").subsample(3,3)
+
+lista = [tree.insert("", tk.END,text=f"Archivo {x}", image=img) for x in range(5)]
+
+lista_hija = [tree.insert(lista[0], tk.END,text=f"file_{x}.txt") for x in range(5)]
+
+
 
 ventana.mainloop()
