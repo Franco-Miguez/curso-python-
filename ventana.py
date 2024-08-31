@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from PIL import Image
 from PIL import ImageTk
 
@@ -8,12 +9,14 @@ def cambiar_imagen(widget, img):
 
 COLOR_BACKGROUND = "#012538"
 COLOR_TEXT = "#FFFFFF"
+IMAGE_ICON = "./img/icono.ico"
 
 ventana = tk.Tk()
 
 ventana.title("Mi ventana")
 ventana.geometry("800x600+300+50")
 ventana.configure(bg=COLOR_BACKGROUND)
+ventana.iconbitmap(IMAGE_ICON)
 
 """
 texto = tk.Label(ventana,text="Hola")
@@ -62,6 +65,12 @@ barra_izquierda = tk.Frame(ventana, width=50, height=400, bg="lightyellow")
 frame_3 = tk.Frame(ventana, width=200, height=200, bg="red")
 frame_4 = tk.Frame(ventana, width=200, height=200, bg="pink")
 
+
+def mensaje_error():
+    frame_3.pack_configure(anchor="center")
+
+
+
 barra_top.pack_propagate(False)
 barra_top.pack(anchor="nw")
 barra_izquierda.pack(side="left")
@@ -76,6 +85,22 @@ tk.Button(barra_top,text="SE", height=2, command=lambda: frame_3.pack_configure(
 tk.Button(barra_top,text="S", height=2, command=lambda: frame_3.pack_configure(anchor="s")).pack(side="left", padx=5) 
 tk.Button(barra_top,text="SW", height=2, command=lambda: frame_3.pack_configure(anchor="sw")).pack(side="left", padx=5) 
 tk.Button(barra_top,text="W", height=2, command=lambda: frame_3.pack_configure(anchor="w")).pack(side="left", padx=5) 
-tk.Button(barra_top,text="CENTER", height=2, command=lambda: frame_3.pack_configure(anchor="center")).pack(side="right", padx=5, ipadx=20) 
+tk.Button(barra_top,text="CENTER", height=2, command=mensaje_error).pack(side="right", padx=5, ipadx=20) 
+
+def salir(window: tk.Toplevel):
+    if messagebox.askyesno("Salir", "quiere salir de esta ventana", icon="warning"):
+        window.destroy()
+    else:
+        window.grab_release()
+
+ventana_hija = tk.Toplevel(ventana)
+ventana_hija.geometry("500x600")
+ventana_hija.config(bg=COLOR_BACKGROUND)
+ventana_hija.iconbitmap(IMAGE_ICON)
+ventana_hija.grab_set()
+ventana_hija.protocol("WM_DELETE_WINDOW", lambda: ventana_hija.destroy())
+
+btn_salir = tk.Button(ventana_hija,text="Salir", command=lambda: salir(ventana_hija), width=30, height=5)
+btn_salir.pack(side="bottom", pady=20)
 
 ventana.mainloop()
