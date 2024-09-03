@@ -126,17 +126,52 @@ select.pack(side="left")
 texto = tk.Label(ventana_hija, text=var.get())
 texto.pack(side="bottom")
 
-"""
 
 tree = ttk.Treeview(ventana_hija)
-tree.pack(side="top", fill="both", expand=True)
+tree["columns"] = ("apellido","edad")
+tree.heading("#0",text="Nombre")
+tree.heading("apellido", text="Apellido")
+tree.heading("edad", text="Edad")
+tree.column("edad", width=50)
+tree.column("#0", minwidth=100, anchor="center")
+tree.column("apellido", minwidth=100)
+tree.tag_configure("par", background="#888", foreground="Blue")
+tree.tag_configure("impar", background="#555", foreground="Green")
+tree.tag_configure("primero", background="#101", foreground="#fff", font=("Arial","14","bold"))
+tree.tag_bind("par","<<TreeviewSelect>>", lambda x:print("par"))
+tree.tag_bind("impar","<<TreeviewSelect>>", lambda x:print("impar"))
+tree.pack(side="top",  expand=True)
 
 img = tk.PhotoImage(file="./img/next.png").subsample(3,3)
 
-lista = [tree.insert("", tk.END,text=f"Archivo {x}", image=img) for x in range(5)]
+lista = [tree.insert(
+                        "", tk.END,text=f"Nombre {x}", image=img, values=("apellido",15+x),
+                        tags="par" if x % 2 == 0 else "impar"
+                    ) for x in range(5)]
 
-lista_hija = [tree.insert(lista[0], tk.END,text=f"file_{x}.txt") for x in range(5)]
+tree.item(tree.get_children()[0], tags="primero")
 
+btn = tk.Button(ventana_hija, text="eliminar", command=lambda:tree.delete(*tree.selection()))
+btn_2 = tk.Button(ventana_hija, text="selection", command=lambda:print(tree.selection()))
+btn_3 = tk.Button(ventana_hija, text="Agregar", command=lambda:tree.move(lista[0],"",tk.END))
+btn.pack(side="bottom")
+btn_2.pack(side="bottom")
+btn_3.pack(side="bottom")
+
+"""
+
+notebook = ttk.Notebook(ventana_hija, width=300, height=300)
+notebook.enable_traversal()
+
+texto = tk.Label(notebook,text="Holaaaaaa", background="blue", fg="pink")
+texto_2 = tk.Label(notebook,text="chauuuc")
+texto_3 = tk.Label(notebook,text="nosseeeee")
+img = tk.PhotoImage(file="./img/next.png").subsample(4,4)
+notebook.add(texto, text="Mi texto", padding=10, image=img, compound=tk.LEFT, underline=0)
+notebook.add(texto_3, text="Mi texo" )
+notebook.add(texto_2, text="Mi texto", underline=3)
+notebook.pack_propagate(False)
+notebook.pack(expand=True, anchor="center")
 
 
 ventana.mainloop()
