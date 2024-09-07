@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+from tkinter import filedialog
+import tkinter.filedialog
 from PIL import Image
 from PIL import ImageTk
 
@@ -94,6 +96,7 @@ def salir(window: tk.Toplevel):
     else:
         window.grab_release()
 
+"""
 ventana_hija = tk.Toplevel(ventana)
 ventana_hija.geometry("500x600")
 ventana_hija.config(bg=COLOR_BACKGROUND)
@@ -101,7 +104,6 @@ ventana_hija.iconbitmap(IMAGE_ICON)
 ventana_hija.grab_set()
 ventana_hija.protocol("WM_DELETE_WINDOW", lambda: ventana_hija.destroy())
 
-"""
 btn_salir = tk.Button(ventana_hija,text="Salir", command=lambda: salir(ventana_hija), width=30, height=5)
 btn_salir.pack(side="bottom", pady=20)
 
@@ -158,20 +160,113 @@ btn.pack(side="bottom")
 btn_2.pack(side="bottom")
 btn_3.pack(side="bottom")
 
-"""
 
 notebook = ttk.Notebook(ventana_hija, width=300, height=300)
 notebook.enable_traversal()
 
-texto = tk.Label(notebook,text="Holaaaaaa", background="blue", fg="pink")
+frame_pestana = tk.Frame(notebook, background=COLOR_BACKGROUND)
+label_numero = tk.Label(frame_pestana,text="0")
+label_numero.pack(side="top", pady=10)
+btn_sumar = tk.Button(
+        frame_pestana,
+        text="<-",
+        command= lambda: notebook.insert(
+            notebook.index(frame_pestana)-1,
+            texto
+            ),
+        padx=10
+    )
+btn_sumar.pack(side="left")
+btn_restar= tk.Button(
+        frame_pestana,
+        text="->",
+        command= lambda: notebook.insert(
+            notebook.index(frame_pestana),
+            texto
+            )
+    )
+btn_restar.pack(side="right", padx=10)
+btn_borrar = tk.Button(
+        frame_pestana,
+        text="Borrar",
+        command=lambda:notebook.forget(frame_pestana)
+    )
+btn_borrar.pack(side="bottom")
+def agregar_pestana():
+    notebook.insert(0,frame_pestana)
+    notebook.tab(frame_pestana, text="Esta otra ves")
+
+btn = tk.Button(
+    notebook,
+    command=agregar_pestana,
+    text="Holaaaaaa",
+    background="blue",
+    fg="pink")
 texto_2 = tk.Label(notebook,text="chauuuc")
 texto_3 = tk.Label(notebook,text="nosseeeee")
 img = tk.PhotoImage(file="./img/next.png").subsample(4,4)
-notebook.add(texto, text="Mi texto", padding=10, image=img, compound=tk.LEFT, underline=0)
-notebook.add(texto_3, text="Mi texo" )
-notebook.add(texto_2, text="Mi texto", underline=3)
+notebook.add(btn, text="Mi texto 1", padding=10, image=img, compound=tk.LEFT, underline=0)
+notebook.add(texto_3, text="Mi texo 2" )
+notebook.add(frame_pestana, text="pestaña 3" )
+notebook.add(texto_2, text="Mi texto 4", underline=3)
 notebook.pack_propagate(False)
-notebook.pack(expand=True, anchor="center")
+notebook.pack(expand=True, fill="both", anchor="center")
+
+notebook.tab(tk.CURRENT, text="Es la primer pestaña")
+notebook.bind("<<NotebookTabChanged>>",lambda x: print("Cabio de pestaña"))
+
+"""
+ventana.bind_all("<Control-n>",lambda x:print("Archivo Nuevo"))
+ventana.bind_all("<Control-o>",lambda x:print("Carpeta Nueva"))
+ventana.bind_all("<Control-q>",lambda x:ventana.quit())
+
+menu = tk.Menu(ventana)
+menu_file = tk.Menu(menu, tearoff=False)
+menu_edit = tk.Menu(menu, tearoff=False)
+menu_edit_formas= tk.Menu(menu, tearoff=False)
+menu_edit_color= tk.Menu(menu, tearoff=False)
+menu_edit_frame= tk.Menu(menu, tearoff=False)
+
+img = tk.PhotoImage(file="./img/next.png").subsample(4,4)
+menu_file.add_command(
+    label="Nuevo Archivo",
+    image=img,
+    compound=tk.LEFT,
+    accelerator="Ctrl + N",
+    command=lambda: print("archivo nuevo"),
+)
+menu_file.add_command(
+    label="Abrir Carpeta",
+    image=img,
+    compound=tk.LEFT,
+    accelerator="Ctrl + O",
+    command=lambda: print("archivo nuevo"),
+)
+menu_file.add_separator()
+menu_file.add_command(
+    label="Salir",
+    image=img,
+    compound=tk.LEFT,
+    accelerator="Ctrl + Q",
+    command=lambda: print("archivo nuevo"),
+)
+menu_edit_formas.add_command(label="circulo")
+menu_edit_formas.add_command(label="cuadrado")
+menu_edit_formas.add_command(label="rectangulo")
+
+var = tk.BooleanVar()
+menu_edit_color.add_radiobutton(label="rojo", variable=var, value=False, command=lambda:frame_3.config(background="red"))
+menu_edit_color.add_radiobutton(label="verde", variable=var, value=True, command=lambda:frame_3.config(background="green"))
+
+
+
+
+menu.add_cascade(menu=menu_file, label="File")
+menu.add_cascade(menu=menu_edit, label="Edit")
+menu_edit.add_cascade(menu=menu_edit_formas, label="formas")
+menu_edit.add_cascade(menu=menu_edit_color, label="color")
+menu_edit.add_cascade(menu=menu_edit_frame, label="color")
+ventana.config(menu=menu)
 
 
 ventana.mainloop()
